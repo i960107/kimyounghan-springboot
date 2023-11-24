@@ -1,6 +1,7 @@
 package hello.hellospring;
 
 import hello.hellospring.repository.JdbcMemberRepository;
+import hello.hellospring.repository.JdbcTemplateMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.service.MemberService;
 import javax.sql.DataSource;
@@ -20,6 +21,6 @@ public class SpringConfig {
     @Bean
     public MemberRepository memberRepository(DataSource dataSource) {
         //여기만 바꾸어주면 repository 교체됨.
-        return new JdbcMemberRepository(dataSource);
+        return new JdbcTemplateMemberRepository(dataSource);
     }
 }
