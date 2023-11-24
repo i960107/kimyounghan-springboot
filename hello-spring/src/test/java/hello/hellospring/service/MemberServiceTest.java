@@ -8,17 +8,21 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemoryMemberRepository;
 import java.util.List;
 import java.util.Optional;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class MemberServiceTest {
-    MemberService memberService;
-    MemoryMemberRepository memberRepository;
+    private final MemberService memberService;
+    private final MemoryMemberRepository memberRepository;
 
-    @BeforeEach
-    void setUp() {
+    public MemberServiceTest() {
         memberRepository = new MemoryMemberRepository();
         memberService = new MemberService(memberRepository);
+    }
+
+    @AfterEach
+    void tearDown() {
         memberRepository.deleteAll();
     }
 
