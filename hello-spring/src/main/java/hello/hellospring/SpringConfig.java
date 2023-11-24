@@ -1,26 +1,28 @@
 package hello.hellospring;
 
-import hello.hellospring.repository.JdbcMemberRepository;
-import hello.hellospring.repository.JdbcTemplateMemberRepository;
+import hello.hellospring.repository.JpaMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.service.MemberService;
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SpringConfig {
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Bean
-    public MemberService memberService(DataSource dataSource) {
+    public MemberService memberService() {
         // TODO: 2023/11/23 함수를 호출하면 application context에 등록된 객체를 가져옴?
         // 따로 객체 생성되는 것 아님?
-        return new MemberService(memberRepository(dataSource));
+        return new MemberService(memberRepository());
     }
 
     @Bean
-    public MemberRepository memberRepository(DataSource dataSource) {
+    public MemberRepository memberRepository() {
         //여기만 바꾸어주면 repository 교체됨.
-        return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(entityManager);
     }
 }
