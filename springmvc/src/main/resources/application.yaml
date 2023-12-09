@@ -1,0 +1,5 @@
+spring.output.ansi.enabled: always
+#hello.springmvc???? ? ?? ?? ?? ??
+loggin.level:
+  root: info
+  hello.springmvc: debug
